@@ -183,7 +183,7 @@ const submit = () => {
                         <div class="mb-4 flex space-x-3">
                             <div class="w-full">
                                 <InputLabel for="unit_value" value="Unit Value"/>
-                                <TextInput id="unit_value" type="number" v-model="form.unit_value" class="w-full text-sm" />
+                                <TextInput id="unit_value" type="text" v-model="form.unit_value" class="w-full text-sm" />
                                 <InputError :message="form.errors.unit_value"/>
                             </div>
                             

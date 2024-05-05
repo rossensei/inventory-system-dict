@@ -28,7 +28,7 @@ class PropertySeeder extends Seeder
                 'item_name' => fake()->word(2, true),
                 'description' => fake()->sentence(),
                 'serial_no' => fake()->ean8(),
-                'measurement_unit' => fake()->randomElement(['kilograms', 'pieces', 'boxes', 'meters']),
+                'measurement_unit' => fake()->randomElement(['cm', 'piece', 'box', 'pack']),
                 'unit_value' => fake()->numberBetween(500, 1000),
                 'acquisition_id' => fake()->randomElement(range(1, 10)),
                 'received_from' => fake()->randomElement(range(1, 5)),

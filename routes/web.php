@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/user/profile', [UserProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/user/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/user/update-photo', [UserProfileController::class, 'photoUpdate'])->name('profile.photoUpdate');
     // Route::delete('/user/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/user/profile/delete-photo', [UserProfileController::class, 'deletePhoto']);
 
@@ -112,9 +113,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/properties/{property}', [PropertyController::class, 'destroy'])->name('property.destroy');
     Route::get('/properties/view-pdf/{filename}', [PropertyController::class, 'viewPdf']);
 
+
     // Reports
-    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
-    Route::get('/properties/inventory-summary', [ReportController::class, 'inventorySummary']);
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/inventory-summary', [ReportController::class, 'inventorySummary']);
+    Route::get('/reports/serviceable-inventory', [ReportController::class, 'inventoryServiceable']);
+    Route::get('/reports/unserviceable-inventory', [ReportController::class, 'inventoryUnserviceable']);
+    Route::get('/reports/inventory-per-office/{office}', [ReportController::class, 'inventoryPerOffice']);
+    Route::get('/reports/inventory-per-employee/{employee}', [ReportController::class, 'inventoryPerEmployee']);
 });
 
 // require __DIR__.'/auth.php';

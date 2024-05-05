@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('serial_no');
             $table->char('measurement_unit');
-            $table->integer('unit_value');
+            $table->decimal('unit_value', 10,2);
             $table->foreignId('acquisition_id')->constrained();
             $table->foreignId('received_from')->constrained('employees');
             $table->foreignId('office_id')->constrained();

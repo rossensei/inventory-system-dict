@@ -80,7 +80,7 @@ watch(perPage, (newPerPageVal) => {
         </template>
 
         <div class="py-4 px-6 w-full">
-            <div class="flex items-start">
+            <div class="flex items-start mb-8">
                 <!-- Category Filter -->
                 <!-- <div class="shrink-0 bg-white shadow-sm p-4 w-[14rem] rounded-lg">
                     <h1 class="text-sm font-medium text-gray-700">Category Filter</h1>
@@ -141,9 +141,10 @@ watch(perPage, (newPerPageVal) => {
                             <th class="px-6 py-3 text-left">Name</th>
                             <th class="px-6 py-3 text-left">Property number</th>
                             <th class="px-6 py-3 text-left">Category</th>
-                            <th class="px-6 py-3 text-left">Quantity</th>
+                            <th class="px-6 py-3 text-left">Unit Value</th>
+                            <th class="px-6 py-3 text-left">Measurement Unit</th>
                             <th class="px-6 py-3 text-left">Status</th>
-                            <th class="px-6 py-3 text-center">Action</th>
+                            <th class="px-6 py-3 text-center w-28">Action</th>
                         </thead>
                         <tbody>
                             <tr v-for="property in properties.data" :key="property.id" class="border-b">
@@ -163,29 +164,35 @@ watch(perPage, (newPerPageVal) => {
                                     {{ property.category.category_name}}
                                 </td>
                                 <td class="px-6 py-3">
-                                    {{ property.unit_value }} {{ property.measurement_unit }}
+                                    {{ property.unit_value }}
+                                </td>
+                                <td class="px-6 py-3">
+                                    {{ property.measurement_unit }}
                                 </td>
                                 <td class="px-6 py-3">
                                     {{ property.status }}
                                 </td>
                                 <td class="px-6 py-3">
-                                    <Dropdown align="right">
-                                        <template #trigger>
-                                            <span class="w-8 h-8 flex justify-center items-center hover:bg-gray-200 rounded-lg cursor-pointer">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                                                </svg>                                                  
-                                            </span>
-                                        </template>
-
-                                        <template #content>
-                                            <div class="flex flex-col py-1 text-left">
-                                                <Link :href="route('property.show', property.id)" class="px-3 py-2 text-sm hover:bg-gray-50">View more details</Link>
-                                                <Link :href="route('property.edit', property.id)" class="px-3 py-2 text-sm hover:bg-gray-50">Edit item details</Link>
-                                                <Link :href="route('property.destroy', property.id)" as="button" method="DELETE" class="text-left px-3 py-2 text-sm hover:bg-gray-50">Delete</Link>
-                                            </div>
-                                        </template>
-                                    </Dropdown>
+                                    <div class="flex items-center justify-center">
+                                        <Dropdown align="right">
+                                            <template #trigger>
+                                                <span class="w-8 h-8 flex justify-center items-center hover:bg-gray-200 rounded-lg cursor-pointer">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                                    </svg>                                                  
+                                                </span>
+                                            </template>
+    
+                                            <template #content>
+                                                <div class="flex flex-col py-1 text-left">
+                                                    <Link :href="route('property.show', property.id)" class="px-3 py-2 text-sm hover:bg-gray-50">View more details</Link>
+                                                    <Link :href="route('property.edit', property.id)" class="px-3 py-2 text-sm hover:bg-gray-50">Edit item details</Link>
+                                                    <Link :href="route('property.destroy', property.id)" as="button" method="DELETE" class="text-left px-3 py-2 text-sm hover:bg-gray-50">Delete</Link>
+                                                </div>
+                                            </template>
+                                        </Dropdown>
+                                    </div>
+                                    
                                 </td>
                             </tr>
 

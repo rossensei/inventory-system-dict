@@ -24,7 +24,7 @@ class EmployeeResource extends JsonResource
             'address' => $this->address,
             'emp_type' => $this->emp_type,
             'profile_photo' => $this->profile_photo,
-            'profile_photo_url' => $this->profile_photo ? asset('storage/uploads/profile_photos/' . $this->profile_photo) : null,
+            'profile_photo_url' => $this->profile_photo ? asset('storage/uploads/profile_photos/' . $this->profile_photo) : asset('/images/default-user-icon.jpg'),
             'status' => $this->status,
             'role' => $this->user->roles[0]->name,
         ];

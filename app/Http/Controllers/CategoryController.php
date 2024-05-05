@@ -15,13 +15,27 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
 
-        $categories = CategoryResource::collection(
-            Category::whereNull('parent_id')->with('children')
-            ->orderBy('category_name')
-            ->get());
+        $pageSize = $request->input('perPage', 10);
+        $baseQuery = Category::query();
+
+        $baseQuery->with('parent');
+
+        $baseQuery->when($request->input('search'), function ($query, $search) {
+            $query->where('category_name', 'LIKE', "%{$search}%");
+        });
+
+        $categories = $baseQuery->paginate($pageSize)->withQueryString();
+
+        // $categories = CategoryResource::collection(
+        //     Category::with('parent')
+        //     ->orderBy('category_name')
+        //     ->get());
+
+        // dd($categories);
 
         return inertia('Category/Index', [
-            'categories' => $categories, 
+            'categories' => CategoryResource::collection($categories),
+            'filters' => $request->only(['search', 'perPage']) 
         ]);
     }
 
@@ -30,7 +44,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('category_name', 'asc')
+        $categories = Category::doesntHave('properties')
+            ->orderBy('category_name', 'asc')
             ->select('id', 'category_name')
             ->get();
 
@@ -47,6 +62,10 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|string|unique:categories',
         ]);
+
+        if($request->parent_id == null || $request->parent_id == 'null') {
+            Category::create(['category_name' => $request->category_name ]);
+        }
 
         Category::create($request->all());
 
@@ -78,9 +97,9 @@ class CategoryController extends Controller
             'category_name' => ['required', 'string', Rule::unique(Category::class)->ignore($category->id)],
         ]);
 
-        $category->update($request->all());
+        $category->update(['category_name' => $request->category_name]);
 
-        return back()->with('success', 'Category details successfully updated!');
+        return redirect(route('category.index'))->with('success', 'Category details successfully updated!');
     }
 
     /**

@@ -18,14 +18,12 @@ class Category extends Model
 
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id')
-            ->orderBy('category_name', 'asc')
-            ->with('children');
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(Category::class, 'parent_id')->with('parent');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function properties()

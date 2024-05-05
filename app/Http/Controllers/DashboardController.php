@@ -13,7 +13,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $properties = Property::latest()->take(5);
+
         return inertia('Dashboard', [
+            'properties' => $properties,
             'categoriesCount' => Category::count(),
             'employeesCount' => Employee::count(),
             'acquisitionsCount' => Acquisition::count(),

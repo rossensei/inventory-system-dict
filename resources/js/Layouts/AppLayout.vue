@@ -45,7 +45,7 @@ import { Link } from '@inertiajs/vue3';
 
                                         <button type="button" class="inline-flex items-center text-xs text-gray-500 font-medium uppercase">
                                             {{ $page.props.auth.user.name }}
-                                            <div class="w-[38px] h-[38px] rounded-full overflow-hidden ml-1">
+                                            <div class="w-[32px] h-[32px] rounded-full overflow-hidden ml-1">
                                                 <img :src="$page.props.auth.user.user_photo_url" alt="user-photo" class="w-full h-full object-cover">
                                             </div>
                                         </button>

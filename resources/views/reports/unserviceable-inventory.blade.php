@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inventory Report Summary</title>
+    <title>Unserviceable Properties Inventory</title>
 
     <style>
         * {
@@ -60,7 +60,7 @@
         <img src="{{ public_path('images/Logo.png') }}" style="width: 80px; margin-top: 15px;" alt="dict-logo">
         <p>Department of Information</p>
         <p>Communications Technology</p>
-        <p id="header-text" style="margin-top: 25px;">Property/Assets of DICT</p>
+        <p id="header-text" style="margin-top: 25px;">LIST OF UNSERVICEABLE PROPERTIES</p>
     </header>
 
     <main>
@@ -68,8 +68,6 @@
         Date: {{ $date_generated }} <br>
         Total count: {{ $properties->count() }}    
         </p>
-        <!-- <p></p> -->
-        <!-- <h1>Summary</h1> -->
         
         <table class="table table-bordered">
             <thead>
@@ -96,7 +94,6 @@
             </tbody>
         </table>
 
-        <!-- <p id="total-count">Total count: {{ $properties->count() }}</p> -->
     </main>
 </body>
 </html>

@@ -10,8 +10,7 @@ const props = defineProps({
 })
 
 const form = useForm({
-    catname: props.category.catname,
-    code: props.category.code,
+    category_name: props.category.category_name,
 })
 
 const submit = () => {
@@ -20,7 +19,7 @@ const submit = () => {
 
 </script>
 <template>
-    <Head :title="`Edit ${props.category.catname}`" />
+    <Head :title="`Edit ${props.category.category_name}`" />
 
     <AppLayout>
         <template #header>
@@ -41,14 +40,9 @@ const submit = () => {
             <div class="w-full px-6">
                 <form @submit.prevent="submit" class="max-w-xl">
                     <div class="mb-4">
-                        <InputLabel for="catname" value="Category name" />
-                        <TextInput v-model="form.catname" id="catname" class="w-full text-sm" />
-                        <InputError :message="form.errors.catname" />
-                    </div>
-                    <div class="mb-4">
-                        <InputLabel for="code" value="Code" />
-                        <TextInput v-model="form.code" id="code" class="w-full text-sm" />
-                        <InputError :message="form.errors.code" />
+                        <InputLabel for="category_name" value="Category name" />
+                        <TextInput v-model="form.category_name" id="category_name" class="w-full text-sm" />
+                        <InputError :message="form.errors.category_name" />
                     </div>
 
                     <button type="submit" class="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-sm text-white rounded-lg inline-flex items-center" :disabled="form.processing">

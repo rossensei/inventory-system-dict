@@ -19,9 +19,8 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'category_name' => $this->category_name,
             'parent_id' => $this->parent_id,
-            // 'isOpen' => false,
             'children' => CategoryResource::collection($this->whenLoaded('children')),
-            // 'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s')
+            'parent' => CategoryResource::make($this->whenLoaded('parent')),
         ];
     }
 }
