@@ -66,24 +66,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/categories/update/{category}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
-    // Route::get('/categories/{category}/new-subcategory', [SubcategoryController::class, 'create'])->name('subcategory.create');
-    // Route::post('/categories/{category}', [SubcategoryController::class, 'store'])->name('subcategory.store');
-
-    // Route::get('/subcategories', [SubcategoryController::class, 'index'])->name('subcategory.index');
-    // Route::post('/categories/{category}/subcategories/new-subcategory', [SubcategoryController::class, 'store'])->name('subcategory.store');
-    // Route::post('/subcategories/new-subcategory', [SubcategoryController::class, 'store'])->name('subcategory.store');
-    // Route::patch('/subcategories/{subcategory}/update', [SubcategoryController::class, 'update'])->name('subcategory.update');
-    // Route::delete('/subcategories/{subcategory}/delete', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
-
-
     // Manage Employees Routes
-    Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
-    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employee.create');
-    Route::post('/employees/create', [EmployeeController::class, 'store'])->name('employee.store');
-    Route::get('/employees/edit/{employee}', [EmployeeController::class, 'edit'])->name('employee.edit');
-    Route::put('/employees/update/{employee}', [EmployeeController::class, 'update'])->name('employee.update');
-    Route::delete('/employees/delete/{employee}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
-    Route::post('/employees/toggle-status/{employee}', [EmployeeController::class, 'toggleStatus']);
+    Route::group(['middleware' => ['role:Administrator']] , function () {
+        Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
+        Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employee.create');
+        Route::post('/employees/create', [EmployeeController::class, 'store'])->name('employee.store');
+        Route::get('/employees/edit/{employee}', [EmployeeController::class, 'edit'])->name('employee.edit');
+        Route::put('/employees/update/{employee}', [EmployeeController::class, 'update'])->name('employee.update');
+        Route::delete('/employees/delete/{employee}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+        Route::post('/employees/toggle-status/{employee}', [EmployeeController::class, 'toggleStatus']);
+    });
     // add route for deleting photo (optional)
 
     // Manage Offices
@@ -103,7 +95,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/acquisitions/{acquisition}', [AcquisitionController::class, 'destroy'])->name('acquisition.destroy');
 
     // Properties
-    // Route::get('/properties/{category?}', [PropertyController::class, 'index'])->name('property.index');
     Route::get('/properties', [PropertyController::class, 'index'])->name('property.index');
     Route::get('/properties/create', [PropertyController::class, 'create'])->name('property.create');
     Route::post('/properties', [PropertyController::class, 'store'])->name('property.store');
@@ -121,6 +112,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/unserviceable-inventory', [ReportController::class, 'inventoryUnserviceable']);
     Route::get('/reports/inventory-per-office/{office}', [ReportController::class, 'inventoryPerOffice']);
     Route::get('/reports/inventory-per-employee/{employee}', [ReportController::class, 'inventoryPerEmployee']);
+
 });
 
 // require __DIR__.'/auth.php';

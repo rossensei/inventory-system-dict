@@ -34,7 +34,7 @@ class ReportController extends Controller
         $pdf = Pdf::loadView('reports.inventory-summary', [ 'properties' => PropertyResource::collection($properties), 'date_generated' => Carbon::now()->toDateString()])
             ->setPaper('a3','landscape');
 
-        return $pdf->download(time() ." - Inventory Report Summary.pdf");
+        return $pdf->download(time().".pdf");
     }
 
     public function inventoryServiceable()
@@ -44,9 +44,9 @@ class ReportController extends Controller
             ->get();
 
         $pdf = Pdf::loadView('reports.serviceable-inventory', [ 'properties' => PropertyResource::collection($properties), 'date_generated' => Carbon::now()->toDateString()])
-            ->setPaper('a3','landscape');
+            ->setPaper(array(0,0,612.28, 1009.13),'landscape');
 
-        return $pdf->download(time() ." - Serviceable Inventory.pdf");
+        return $pdf->download(time() .".pdf");
     }
 
     public function inventoryUnserviceable()
@@ -60,16 +60,13 @@ class ReportController extends Controller
             'date_generated' => Carbon::now()->toDateString()
         ])->setPaper('a3','landscape');
 
-        return $pdf->download(time() ." - Unserviceable Inventory.pdf");
+        return $pdf->download(time() .".pdf");
     }
 
     public function inventoryPerOffice(Office $office)
     {
-
         if(!$office->properties()->exists()) {
-            session()->flash('error', 'Office has no existing properties. Nothing to be generated!');
-
-            return;
+            return back()->with('error', 'Office does not have existing properties');
         }
 
         $properties = $office->properties;
@@ -82,21 +79,24 @@ class ReportController extends Controller
             'date_generated' => Carbon::now()->toDateString()
         ])->setPaper('a3','landscape');
 
-        return $pdf->download(time() ." - " . $office->office_name . " Inventory.pdf");
+        return $pdf->download(time().".pdf");
     }
 
     public function inventoryPerEmployee(Employee $employee)
     {
-        $properties = $employee->properties;
+        if(!$employee->assignedProperties()->exists()) {
+            return back();
+        }
+        $properties = $employee->assignedProperties;
 
         $properties->load(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee']);
 
-        $pdf = Pdf::loadView('reports.inventory-per-office', [ 
-            'office' => $office,
+        $pdf = Pdf::loadView('reports.inventory-per-employee', [ 
+            'employee' => $employee,
             'properties' => PropertyResource::collection($properties), 
             'date_generated' => Carbon::now()->toDateString()
         ])->setPaper('a3','landscape');
 
-        return $pdf->download(time() ." - " . $office->office_name . " Inventory.pdf");
+        return $pdf->download(time() .".pdf");
     }
 }

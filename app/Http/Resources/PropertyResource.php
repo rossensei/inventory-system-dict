@@ -20,6 +20,7 @@ class PropertyResource extends JsonResource
             'category' => [
                 'id' => $this->category->id,
                 'category_name' => $this->category->category_name,
+                'path' => $this->category->getPath()
             ],
             'item_name' => $this->item_name,
             'description' => $this->description,
@@ -37,6 +38,7 @@ class PropertyResource extends JsonResource
             'office' => [
                 'id' => $this->office->id,
                 'office_name' => $this->office->office_name,
+                'location' => $this->office->location,
             ],
             'assigned_to' => [
                 'id' => $this->assignedEmployee->id,

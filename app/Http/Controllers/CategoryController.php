@@ -44,7 +44,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::doesntHave('properties')
+        $categories = Category::whereNull('parent_id')
+            ->doesntHave('properties')
             ->orderBy('category_name', 'asc')
             ->select('id', 'category_name')
             ->get();
@@ -65,6 +66,7 @@ class CategoryController extends Controller
 
         if($request->parent_id == null || $request->parent_id == 'null') {
             Category::create(['category_name' => $request->category_name ]);
+            return redirect(route('category.index'))->with('success', 'Category successfully created!');
         }
 
         Category::create($request->all());
@@ -108,7 +110,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if($category->children()->exists() || $category->properties()->exists()) {
-            return back()->with('error', 'Error deleting category.');
+            return back()->with('error', 'Category cannot be deleted.');
         } else {
             $category->delete();
             return back()->with('success', 'Category has been removed.');

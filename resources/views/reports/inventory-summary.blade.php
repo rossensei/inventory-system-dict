@@ -68,18 +68,22 @@
         Date: {{ $date_generated }} <br>
         Total count: {{ $properties->count() }}    
         </p>
-        <!-- <p></p> -->
-        <!-- <h1>Summary</h1> -->
         
         <table class="table table-bordered">
             <thead>
                 <th>PROPERTY NO.</th>
                 <th>ASSET CLASSIFICATION</th>
                 <th>ITEM/BRAND/MODEL</th>
-                <th style="width: 100px;">SERIAL NO.</th>
+                <th>DESCRIPTION</th>
+                <th>SERIAL NO.</th>
+                <th>CATEGORY</th>
+                <th>MEASUREMENT UNIT</th>
+                <th>UNIT VALUE</th>
+                <th>OFFICE</th>
                 <th>ACQUISITION DATE</th>
-                <th>LOCATION</th>
+                <th>RECEIVED FROM</th>
                 <th>PERSON ACCOUNTABLE</th>
+                <th>STATUS</th>
             </thead>
             <tbody>
                 @foreach($properties as $data)
@@ -87,10 +91,16 @@
                         <td>{{ $data->property_no }}</td>
                         <td>{{ $data->acquisition->name }}</td>
                         <td>{{ $data->item_name }}</td>
+                        <td>{{ $data->description }}</td>
                         <td>{{ $data->serial_no }}</td>
+                        <td>{{ $data->category->getPath() }}</td>
+                        <td>{{ $data->measurement_unit }}</td>
+                        <td>{{ $data->unit_value }}</td>
+                        <td>{{ $data->office->office_name }}</td>
                         <td>{{ $data->date_acquired }}</td>
-                        <td>{{ $data->office->location }}</td>
+                        <td>{{ $data->receivingEmployee->fname }} {{ $data->receivingEmployee->lname }}</td>
                         <td>{{ $data->assignedEmployee->fname }} {{ $data->assignedEmployee->lname }}</td>
+                        <td>{{ $data->status }}</td>
                     </tr>
                 @endforeach
             </tbody>

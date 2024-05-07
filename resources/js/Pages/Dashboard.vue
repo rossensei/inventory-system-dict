@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { useState } from '@/composables/counter.js'
 
 const props = defineProps({
@@ -9,7 +9,7 @@ const props = defineProps({
     employeesCount: Number,
     officesCount: Number,
     propertiesCount: Number,
-    properties: Array,
+    properties: Object,
 })
 
 const state = useState();
@@ -88,6 +88,61 @@ const state = useState();
                         <h1 class="text-xl font-bold text-gray-700">{{ propertiesCount }}</h1>
                         <p class="text-sm text-gray-500">Properties</p>
                     </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-6 shadow-sm bg-white border rounded-lg">
+                <h4 class="text-lg text-gray-600 font-semibold">Latest added properties</h4>
+                <table class="w-full text-sm mt-3">
+                    <thead class="text-gray-600 font-medium border-t border-b">
+                        <th class="px-6 py-3 text-left w-8">Image</th>
+                        <th class="px-6 py-3 text-left">Name</th>
+                        <th class="px-6 py-3 text-left">Property number</th>
+                        <th class="px-6 py-3 text-left">Category</th>
+                        <th class="px-6 py-3 text-left">Unit Value</th>
+                        <th class="px-6 py-3 text-left">Measurement Unit</th>
+                        <th class="px-6 py-3 text-left">Status</th>
+                        <th class="px-6 py-3 text-center">Action</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="property in properties.data" :key="property.id" class="border-b">
+                            <td class="px-6 py-3">
+                                <div class="h-14 w-20 overflow-hidden bg-gray-400 rounded-lg">
+                                    <img v-if="property.photo" :src="property.photo" alt="" class="bg-cover h-full w-full">
+                                    <img v-else src="https://primefaces.org/cdn/primevue/images/product/bamboo-watch.jpg" alt="" class="bg-cover h-full w-full">
+                                </div>
+                            </td>
+                            <td class="px-6 py-3">
+                                {{ property.item_name }}
+                            </td>
+                            <td class="px-6 py-3">
+                                {{ property.property_no }}
+                            </td>
+                            <td class="px-6 py-3">
+                                {{ property.category.category_name}}
+                            </td>
+                            <td class="px-6 py-3">
+                                {{ property.unit_value }}
+                            </td>
+                            <td class="px-6 py-3">
+                                {{ property.measurement_unit }}
+                            </td>
+                            <td class="px-6 py-3">
+                                {{ property.status }}
+                            </td>
+                            <td class="px-6 py-3 text-center">
+                                <Link :href="route('property.show', property.id)" class="underline text-blue-700 text-sm font-medium">View more details</Link>
+                            </td>
+                        </tr>
+
+                        <tr v-show="!props.properties.data.length" class="border-b">
+                            <td colspan="7" class="px-6 py-4">No records found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="mt-4">
+                    <Link href="/properties" class="underline text-blue-700 text-sm font-medium">See all properties</Link>
                 </div>
             </div>
         </div>

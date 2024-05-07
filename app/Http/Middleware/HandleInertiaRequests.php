@@ -36,9 +36,9 @@ class HandleInertiaRequests extends Middleware
                     'id' => $request->user()->id,
                     'username' => $request->user()->username,
                     'name' => $request->user()->employee->fname . ' ' . $request->user()->employee->lname,
-                    'user_photo_url' => $request->user()->employee->getProfilePhotoUrlAttribute() ?? asset('/images/default-user-icon.jpg')
-                    // 'role' => $request->user()->getRole(),
-                    // 'permissions' => $request->user()->getAllPermissions()->pluck('name'),
+                    'user_photo_url' => $request->user()->employee->getProfilePhotoUrlAttribute() ?? asset('/images/default-user-icon.jpg'),
+                    'role' => $request->user()->getUserRole(),
+                    'permissions' => $request->user()->getPermissionNames(),
                 ] : null,
             ],
             'flash' => [

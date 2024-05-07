@@ -53,16 +53,4 @@ class User extends Authenticatable
     {
         return $this->getRoleNames()->first();
     }
-
-    // public function getRole()
-    // {
-    //     // Check if the user has any roles assigned
-    //     if (is_array($this->roles)) {
-    //         // Retrieve the first role from the roles array
-    //         return $this->roles->first();
-    //     }
-
-    //     // If no roles are assigned, return null
-    //     return null;
-    // }
 }

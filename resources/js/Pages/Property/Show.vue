@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head :title="property.item_name" />
+    <Head :title="property.data.item_name" />
     <AppLayout>
         <template #header>
             <div class="flex items-center divide-x divide-gray-200">
@@ -30,80 +30,80 @@ const props = defineProps({
 
             <div class="flex flex-col space-y-3">
                 <div class="h-[300px] w-[400px] overflow-hidden">
-                    <img :src="property.photo_url" alt="item-photo" class="object-cover h-full w-full rounded-lg">
+                    <img :src="property.data.photo" alt="item-photo" class="object-cover h-full w-full rounded-lg">
                 </div>
 
                 <div>
-                    <h1 class="text-xl font-semibold text-gray-700">{{ property.item_name }}</h1>
-                    <p class="text-sm text-gray-500">{{ property.description }}</p>
+                    <h1 class="text-xl font-semibold text-gray-700">{{ property.data.item_name }}</h1>
+                    <p class="text-sm text-gray-500">{{ property.data.description }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Property number</h6>
-                    <p class="text-sm text-gray-900">{{ property.property_no }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.property_no }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Serial number</h6>
-                    <p class="text-sm text-gray-900">{{ property.serial_no }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.serial_no }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Category</h6>
-                    <p class="text-sm text-gray-900">{{ property.category.category_name }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.category.path }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Unit Value</h6>
-                    <p class="text-sm text-gray-900">{{ property.unit_value }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.unit_value }}</p>
                 </div>
                 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Unit of measurement</h6>
-                    <p class="text-sm text-gray-900">{{ property.measurement_unit }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.measurement_unit }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Received by</h6>
-                    <p class="text-sm text-gray-900">{{ property.receiving_employee.fname }} {{ property.receiving_employee.lname }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.received_from.name }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Person Accountable</h6>
-                    <p class="text-sm text-gray-900">{{ property.assigned_employee.fname }} {{ property.assigned_employee.lname }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.assigned_to.name }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Office</h6>
-                    <p class="text-sm text-gray-900">{{ property.office.location }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.office.office_name }} | {{ property.data.office.location }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Acquisition date</h6>
-                    <p class="text-sm text-gray-900">{{ property.date_acquired }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.date_acquired }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Acquisition type</h6>
-                    <p class="text-sm text-gray-900">{{ property.acquisition.name }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.acquisition.name }}</p>
                 </div>
 
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Status</h6>
-                    <p class="text-sm text-gray-900">{{ property.status }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.status }}</p>
                 </div>
                 <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Property Document</h6>
                     <p class="text-sm text-gray-900">
-                        <a :href="'/properties/view-pdf/' + property.document" target="_blank" class="inline-flex items-center text-blue-600 underline visited:text-indigo-600">
-                            {{ property.document }}
+                        <a :href="'/properties/view-pdf/' + property.data.document" target="_blank" class="inline-flex items-center text-blue-600 underline visited:text-indigo-600">
+                            {{ property.data.document }}
                         </a>
                     </p>
                 </div>
             </div>
 
             <div class="mt-6 mb-4">
-                <Link :href="route('property.edit', property.id)" class="px-4 py-2 text-sm text-white font-medium bg-blue-600 hover:bg-blue-500 rounded-lg ">Edit item details</Link>
+                <Link :href="route('property.edit', property.data.id)" class="px-4 py-2 text-sm text-white font-medium bg-blue-600 hover:bg-blue-500 rounded-lg ">Edit item details</Link>
             </div>
         </div>
     </AppLayout>

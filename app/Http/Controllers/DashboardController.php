@@ -8,15 +8,19 @@ use App\Models\Employee;
 use App\Models\Property;
 use App\Models\Acquisition;
 use Illuminate\Http\Request;
+use App\Http\Resources\PropertyResource;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $properties = Property::latest()->take(5);
+        $properties = Property::with(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee'])
+            ->latest()
+            ->take(5)
+            ->get();
 
         return inertia('Dashboard', [
-            'properties' => $properties,
+            'properties' => PropertyResource::collection($properties),
             'categoriesCount' => Category::count(),
             'employeesCount' => Employee::count(),
             'acquisitionsCount' => Acquisition::count(),

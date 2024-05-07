@@ -2,8 +2,9 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import SelectInput from '@/Components/SelectInput.vue';
-import { Head, router, Link } from '@inertiajs/vue3';
+import { Head, router, Link, } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
     offices: Array,
@@ -12,18 +13,25 @@ const props = defineProps({
 
 const selectedOffice = ref('')
 
-// const downloadInventoryPerOffice = () => {
-//     if(selectedOffice.value === '') return;
+const downloadInventoryPerOffice = () => {
+    if(selectedOffice.value === '') return alert("You haven't selected an office! Please select one.");
 
-//     router.get('/reports/inventory-per-office/' + selectedOffice.value)
-// }
+    const a = document.createElement('a');
+    a.href = `/reports/inventory-per-office/${selectedOffice.value}`;
+    document.body.appendChild(a);
+    a.click();
+}
 
 const selectedEmployee = ref('')
 
-// const downloadInventoryPerEmployee = () => {
-//     if(selectedEmployee.value === '') return;
-//     router.visit('/reports/inventory-per-office/' + selectedEmployee.value)
-// }
+const downloadInventoryPerEmployee = () => {
+    if(selectedEmployee.value === '') return alert("You haven't selected an employee! Please select one.");
+
+    const a = document.createElement('a');
+    a.href = `/reports/inventory-per-employee/${selectedEmployee.value}`;
+    document.body.appendChild(a);
+    a.click();
+}
 </script>
 
 <template>
@@ -81,7 +89,7 @@ const selectedEmployee = ref('')
                     <div class="p-6 border bg-white shadow-sm rounded-lg flex justify-between items-center">
                         <div>
                             <h6 class="text-lg text-gray-900 font-semibold">Inventory per office</h6>
-                            <p class="text-sm text-gray-600">Download list of all serviceable properties</p>
+                            <p class="text-sm text-gray-600">Select and download inventory from an office</p>
 
                             <div class="mt-4">
                                 <InputLabel value="Select an office" for="office" />
@@ -92,18 +100,18 @@ const selectedEmployee = ref('')
                             </div>
                         </div>
 
-                        <a :href="'/reports/inventory-per-office/' + selectedOffice" class="px-4 py-2 text-white text-sm bg-gray-600 rounded-lg inline-flex items-center">
+                        <button @click="downloadInventoryPerOffice" class="px-4 py-2 text-white text-sm bg-gray-600 rounded-lg inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                 <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                               </svg>                              
                             Download
-                            </a>
+                        </button>
                     </div>
 
                     <div class="p-6 border bg-white shadow-sm rounded-lg flex justify-between items-center">
                         <div>
                             <h6 class="text-lg text-gray-900 font-semibold">Inventory per employee</h6>
-                            <p class="text-sm text-gray-600">Download inventory from an employee </p>
+                            <p class="text-sm text-gray-600">Select and download inventory from an employee </p>
 
                             <div class="mt-4">
                                 <InputLabel value="Select an employee" for="employee" />
@@ -114,12 +122,12 @@ const selectedEmployee = ref('')
                             </div>
                         </div>
 
-                        <a :href="'/reports/inventory-per-employee/' + selectedEmployee" class="px-4 py-2 text-white text-sm bg-gray-600 rounded-lg inline-flex items-center">
+                        <button @click="downloadInventoryPerEmployee" class="px-4 py-2 text-white text-sm bg-gray-600 rounded-lg inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
                                 <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                               </svg>                              
                             Download
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -131,7 +131,7 @@ class PropertyController extends Controller
 
         // dd(PropertyResource::make($property));
         return inertia('Property/Show', [ 
-            'property' => $property
+            'property' => PropertyResource::make($property)
             // 'property' => PropertyResource::make($property)
         ]);
     }
