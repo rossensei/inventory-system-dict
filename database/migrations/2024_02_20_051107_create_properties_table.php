@@ -21,7 +21,8 @@ return new class extends Migration
             $table->char('measurement_unit');
             $table->decimal('unit_value', 10,2);
             $table->foreignId('acquisition_id')->constrained();
-            $table->foreignId('received_from')->constrained('employees');
+            $table->string('received_from');
+            $table->foreignId('received_by')->constrained('employees');
             $table->foreignId('office_id')->constrained();
             $table->foreignId('assigned_to')->constrained('employees');
             $table->date('date_acquired');

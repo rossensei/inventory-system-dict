@@ -28,8 +28,8 @@ class PropertyController extends Controller
         $baseQuery->with([
             'acquisition', 
             'category', 
-            'receivingEmployee', 
-            'assignedEmployee', 
+            'receivedBy', 
+            'assignedTo', 
             'office'
         ]);
 
@@ -127,7 +127,7 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        $property->load(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee']);
+        $property->load(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo']);
 
         // dd(PropertyResource::make($property));
         return inertia('Property/Show', [ 

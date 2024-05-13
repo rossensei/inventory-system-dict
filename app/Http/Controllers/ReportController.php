@@ -29,7 +29,7 @@ class ReportController extends Controller
 
     public function inventorySummary()
     {
-        $properties = Property::with(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee'])->get();
+        $properties = Property::with(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo'])->get();
 
         $pdf = Pdf::loadView('reports.inventory-summary', [ 'properties' => PropertyResource::collection($properties), 'date_generated' => Carbon::now()->toDateString()])
             ->setPaper('a3','landscape');
@@ -40,11 +40,11 @@ class ReportController extends Controller
     public function inventoryServiceable()
     {
         $properties = Property::where('status', 'Serviceable')
-            ->with(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee'])
+            ->with(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo'])
             ->get();
 
         $pdf = Pdf::loadView('reports.serviceable-inventory', [ 'properties' => PropertyResource::collection($properties), 'date_generated' => Carbon::now()->toDateString()])
-            ->setPaper(array(0,0,612.28, 1009.13),'landscape');
+            ->setPaper('a3','landscape');
 
         return $pdf->download(time() .".pdf");
     }
@@ -52,7 +52,7 @@ class ReportController extends Controller
     public function inventoryUnserviceable()
     {
         $properties = Property::where('status', 'Unserviceable')
-            ->with(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee'])
+            ->with(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo'])
             ->get();
 
         $pdf = Pdf::loadView('reports.unserviceable-inventory', [ 
@@ -71,7 +71,7 @@ class ReportController extends Controller
 
         $properties = $office->properties;
 
-        $properties->load(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee']);
+        $properties->load(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo']);
 
         $pdf = Pdf::loadView('reports.inventory-per-office', [ 
             'office' => $office,
@@ -89,7 +89,7 @@ class ReportController extends Controller
         }
         $properties = $employee->assignedProperties;
 
-        $properties->load(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee']);
+        $properties->load(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo']);
 
         $pdf = Pdf::loadView('reports.inventory-per-employee', [ 
             'employee' => $employee,

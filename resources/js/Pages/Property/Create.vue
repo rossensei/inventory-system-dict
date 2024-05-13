@@ -33,6 +33,7 @@ const form = useForm({
     unit_value: '',
     acquisition_id: '',
     received_from: '',
+    received_by: '',
     office_id: '',
     assigned_to: '',
     date_acquired: '',
@@ -69,7 +70,7 @@ const submit = () => {
     
     form.post(route('property.store'), {
         onSuccess: () => {
-            clearPhotoFileInput();
+            photoPreview.value = null;
             form.reset();
         }
     })
@@ -154,21 +155,27 @@ const submit = () => {
                         </div>
 
                         <div class="mb-4">
-                            <InputLabel for="acquisition-date" value="Acquisition date"/>
+                            <InputLabel for="received-from" value="Acquisition date"/>
                             <TextInput type="date" id="acquisition-date" v-model="form.date_acquired" class="w-full text-sm"/>
                             <InputError :message="form.errors.date_acquired"/>
                         </div>
                     </div>
                     <div class="max-w-2xl w-full ml-4">
 
+                        <div class="mb-4">
+                            <InputLabel for="received-from" value="Received from"/>
+                            <TextInput type="text" id="received-from" v-model="form.received_from" class="w-full text-sm"/>
+                            <InputError :message="form.errors.received_from"/>
+                        </div>
+
                         <div class="mb-4 flex space-x-3">
                             <div class="w-full">
-                                <InputLabel for="receiving-emp" value="Received from"/>
-                                <SelectInput v-model="form.received_from" id="receiving-emp" class="w-full text-sm">
+                                <InputLabel for="received-by" value="Received by"/>
+                                <SelectInput v-model="form.received_by" id="received-by" class="w-full text-sm">
                                     <option value="">Choose employee</option>
                                     <option v-for="emp in employees" :key="emp.id" :value="emp.id">{{ `${emp.fname} ${emp.lname}` }}</option>
                                 </SelectInput>
-                                <InputError :message="form.errors.received_from"/>
+                                <InputError :message="form.errors.received_by"/>
                             </div>
                             <div class="w-full">
                                 <InputLabel for="assigned-emp" value="Assigned to"/>

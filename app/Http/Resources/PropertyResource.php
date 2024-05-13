@@ -31,9 +31,10 @@ class PropertyResource extends JsonResource
                 'id' => $this->acquisition->id,
                 'name' => $this->acquisition->name,
             ],
-            'received_from' => [
-                'id' => $this->receivingEmployee->id,
-                'name' => $this->receivingEmployee->fname . ' ' . $this->receivingEmployee->lname,
+            'received_from' => $this->received_from,
+            'received_by' => [
+                'id' => $this->receivedBy->id,
+                'name' => $this->receivedBy->fname . ' ' . $this->receivedBy->lname,
             ],
             'office' => [
                 'id' => $this->office->id,
@@ -41,8 +42,8 @@ class PropertyResource extends JsonResource
                 'location' => $this->office->location,
             ],
             'assigned_to' => [
-                'id' => $this->assignedEmployee->id,
-                'name' => $this->assignedEmployee->fname . ' ' . $this->assignedEmployee->lname,
+                'id' => $this->assignedTo->id,
+                'name' => $this->assignedTo->fname . ' ' . $this->assignedTo->lname,
             ],
             'date_acquired' => $this->date_acquired,
             'status' => $this->status,

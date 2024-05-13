@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $properties = Property::with(['category', 'acquisition', 'office', 'receivingEmployee', 'assignedEmployee'])
+        $properties = Property::with(['category', 'acquisition', 'office', 'receivedBy', 'assignedTo'])
             ->latest()
             ->take(5)
             ->get();

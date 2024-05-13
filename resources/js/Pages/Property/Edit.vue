@@ -28,6 +28,7 @@ const form = useForm({
     unit_value: props.property.unit_value,
     acquisition_id: props.property.acquisition_id,
     received_from: props.property.received_from,
+    received_by: props.property.received_by,
     office_id: props.property.office_id,
     assigned_to: props.property.assigned_to,
     date_acquired: props.property.date_acquired,
@@ -41,10 +42,6 @@ const sortInAscendingOrder = (categories) => {
 }
 
 onMounted(() => sortInAscendingOrder(props.categories));
-
-// HANDLE DOCUMENT INPUT
-// const fileName = ref(null);
-// const fileSize = ref(null);
 
 const handleDocumentUpload = (file) => {
     form.document = file;
@@ -93,7 +90,6 @@ const submit = () => {
         </template>
 
         <div class="py-4 px-6 w-full">
-            <!-- <h1 class="text-xl font-semibold text-gray-700">Edit property details</h1> -->
             <form @submit.prevent="submit">
                 <div class="flex items-start mt-3">
                     <div class="max-w-2xl w-full">
@@ -155,15 +151,20 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="max-w-2xl w-full ml-4">
+                        <div class="mb-4">
+                            <InputLabel for="received-from" value="Received from"/>
+                            <TextInput type="text" id="received-from" v-model="form.received_from" class="w-full text-sm"/>
+                            <InputError :message="form.errors.received_from"/>
+                        </div>
 
                         <div class="mb-4 flex space-x-3">
                             <div class="w-full">
-                                <InputLabel for="receiving-emp" value="Received from"/>
-                                <SelectInput v-model="form.received_from" id="receiving-emp" class="w-full text-sm">
+                                <InputLabel for="received-by" value="Received by"/>
+                                <SelectInput v-model="form.received_by" id="received-by" class="w-full text-sm">
                                     <option value="">Choose employee</option>
                                     <option v-for="emp in employees" :key="emp.id" :value="emp.id">{{ `${emp.fname} ${emp.lname}` }}</option>
                                 </SelectInput>
-                                <InputError :message="form.errors.received_from"/>
+                                <InputError :message="form.errors.received_by"/>
                             </div>
                             <div class="w-full">
                                 <InputLabel for="assigned-emp" value="Assigned to"/>

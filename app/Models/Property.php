@@ -24,6 +24,7 @@ class Property extends Model
         'unit_value',
         'acquisition_id',
         'received_from',
+        'received_by',
         'office_id',
         'assigned_to',
         'date_acquired',
@@ -54,12 +55,12 @@ class Property extends Model
         return $this->belongsTo(Office::class);
     }
 
-    public function receivingEmployee()
+    public function receivedBy()
     {
-        return $this->belongsTo(Employee::class, 'received_from');
+        return $this->belongsTo(Employee::class, 'received_by');
     }
 
-    public function assignedEmployee()
+    public function assignedTo()
     {
         return $this->belongsTo(Employee::class, 'assigned_to');
     }

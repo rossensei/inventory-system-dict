@@ -64,8 +64,13 @@ const props = defineProps({
                 </div>
 
                 <div>
+                    <h6 class="text-sm font-medium text-left text-gray-900">Received from</h6>
+                    <p class="text-sm text-gray-900">{{ property.data.received_from }}</p>
+                </div>
+
+                <div>
                     <h6 class="text-sm font-medium text-left text-gray-900">Received by</h6>
-                    <p class="text-sm text-gray-900">{{ property.data.received_from.name }}</p>
+                    <p class="text-sm text-gray-900">{{ property.data.received_by.name }}</p>
                 </div>
 
                 <div>
